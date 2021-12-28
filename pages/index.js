@@ -1,10 +1,35 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Products from './components/Products'
 import Sidebar from './components/Sidebar'
-import Slider from './components/Slider'
+import axios from 'axios'
+import { useState, createContext, useEffect } from 'react'
+import _ from 'lodash';
+const Data = createContext()
 
+const Home = () => {
+   const [posts, setPosts] = useState([])
+   const [loading, setLoading] = useState(false)
+   const [error, setError] = useState(null)
+   //Api call url
+   const url = 'https://assessment-edvora.herokuapp.com'
+   useEffect(() => {
+      const fetchData = async () => {
+         setLoading(true)
+         try {
+            const result = await axios(url)
+            setPosts(_.groupBy(result.data, 'product_name'))
+            // setPosts(result.data)
+         } catch (error) {
+            setError(error)
+         }
+         setLoading(false)
+      }
+      fetchData()
+   }, [])
 
-export default function Home() {
+   
+  
+
    return (
       <div>
          <Head>
@@ -13,9 +38,19 @@ export default function Home() {
          </Head>
 
          <main className='min-h-screen container py-8 px-4 mx-auto'>
-            <Sidebar/>
-            <Slider/>
+            {loading ? (
+               <h1 className='text-white'>Loading</h1>
+            ) : (
+               <>
+                  <Data.Provider value={posts}>
+                     <Sidebar />
+                     <Products />
+                  </Data.Provider>
+               </>
+            )}
          </main>
       </div>
    )
 }
+export default Home;
+export  {Data} ;
