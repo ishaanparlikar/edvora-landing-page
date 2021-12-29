@@ -1,6 +1,6 @@
 import { React, useContext } from 'react'
 import Slider from './Slider'
-import { Data } from '..'
+import { Data } from '../pages';
 import _ from 'lodash';
 
 const Products = () => {

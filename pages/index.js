@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import Products from './components/Products'
-import Sidebar from './components/Sidebar'
+import Products from '../components/Products'
+import Sidebar from '../components/Sidebar'
 import axios from 'axios'
 import { useState, createContext, useEffect,useLayoutEffect} from 'react'
 import _ from 'lodash';

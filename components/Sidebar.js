@@ -1,6 +1,6 @@
 import { React, useContext, useState } from 'react'
 import Dropdown from './Dropdown'
-import { Data } from '..'
+import { Data } from '../pages'
 import Select from 'react-select'
 import _ from 'lodash';
 import base from 'daisyui/dist/base';
