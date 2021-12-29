@@ -67,11 +67,17 @@ const Sidebar = () => {
       singleValue: (base, state) => ({
          ...base,
          color: "white",
+         color: state.isSelected ? "#000" : "#fff",
          "&:hover": {
             // Overwrittes the different states of border
             color: "white"
           }
       }),
+      placeholder: (base, state) => ({
+         ...base,
+         color: "white",
+         color: state.isSelected ? "#000" : "#fff",
+      })
     };
    return (
       <>
@@ -83,8 +89,8 @@ const Sidebar = () => {
             <div className='flex flex-col h-full items-center'>
 
                <Select styles={customStyles} onChange={handleChange}  className="w-full my-3 bg-themeGray" options={options} placeholder="Product" />
-               <Select styles={customStyles}  onChange={handleChange} className="w-full my-3 bg-themeGray" options={optionsCity} placeholder="City" />
                <Select styles={customStyles}   onChange={handleChange} className="w-full my-3 bg-themeGray" options={optionsState} placeholder="State" />
+               <Select styles={customStyles}  onChange={handleChange} className="w-full my-3 bg-themeGray" options={optionsCity} placeholder="City" />
 
             </div>
 
