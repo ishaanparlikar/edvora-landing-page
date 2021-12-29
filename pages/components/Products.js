@@ -4,30 +4,20 @@ import { Data } from '..'
 import _ from 'lodash';
 
 const Products = () => {
-   const products = useContext(Data);
-   
-   const arrayOfObj = Object.keys(products).map(key =>(
+   const products = _.groupBy(useContext(Data), 'product_name');
+
+   const arrayOfObj = Object.keys(products).map(key => (
       {
          product_name: key,
          product_details: products[key],
       }
    ));
-//   console.log(arrayOfObj);
+   //   console.log(products);
    return (
-      <div>
+      <>
+         <Slider data={arrayOfObj} />
 
-         {
-
-           Object.entries(products).map((product, index) => {
-         
-              return (
-                 
-                 <Slider key={index}  data={arrayOfObj}/>
-              )
-             })
-         }
-
-      </div>
+      </>
    )
 
 

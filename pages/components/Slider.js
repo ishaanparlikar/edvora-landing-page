@@ -10,19 +10,20 @@ const Slider = ({ data }) => {
    return (
       <>
 
-         {data.map((product, index) => {
-            console.log(product);
-            return (
-               <div className='' key={index}>
+         <div className=''>
+            {data.map((product, index) => {
+               // console.log(product);
+               return (
+                  <>
                   <h1 className='text-white py-2 border-b border-b-gray-400'>{product.product_name}</h1>
 
                   <Splide
                      key={index}
                      options={{
-                        gap: '1.5rem',
+                        gap: '1.2rem',
                         perPage: '4',
                         pagination: false,
-
+                        width: '1200px',
                         breakpoints:{
                            600: {
                               perPage: '1',
@@ -33,10 +34,10 @@ const Slider = ({ data }) => {
                         }
                      }}
                      className="bg-black p-6 rounded-xl my-3"
-                  >
+                     >
                      {product.product_details.map((product, index) => {
                         return (
-
+                           
                            <SplideSlide key={index}>
                               <Card key={index} product={product} />
                            </SplideSlide>
@@ -44,10 +45,11 @@ const Slider = ({ data }) => {
                      })}
                   </Splide>
 
+                     </>
 
-               </div>
-            )
-         })}
+               )
+            })}
+         </div>
       </>
    )
 }

@@ -3,7 +3,7 @@ import React from 'react'
 const Dropdown = (props) => {
    return (
       <>
-         <div className="dropdown w-full my-2">
+         <div className="dropdown w-full my-4">
             <button tabIndex="0" className="text-white py-2 px-3 rounded-lg  w-full flex items-center justify-between bg-themeGray h-9">
                {props.title}
 

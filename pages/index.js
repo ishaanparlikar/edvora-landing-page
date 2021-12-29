@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Products from './components/Products'
 import Sidebar from './components/Sidebar'
 import axios from 'axios'
-import { useState, createContext, useEffect } from 'react'
+import { useState, createContext, useEffect,useLayoutEffect} from 'react'
 import _ from 'lodash';
 const Data = createContext()
 
@@ -17,7 +17,7 @@ const Home = () => {
          setLoading(true)
          try {
             const result = await axios(url)
-            setPosts(_.groupBy(result.data, 'product_name'))
+            setPosts(result.data)
             // setPosts(result.data)
          } catch (error) {
             setError(error)
@@ -27,9 +27,9 @@ const Home = () => {
       fetchData()
    }, [])
 
-   
-  
 
+
+// console.log(posts);
    return (
       <div>
          <Head>
@@ -43,8 +43,13 @@ const Home = () => {
             ) : (
                <>
                   <Data.Provider value={posts}>
-                     <Sidebar />
-                     <Products />
+                     <div className="xl:flex">
+                        <Sidebar />
+                        <div className='max-w-full mx-auto'>
+
+                           <Products />
+                        </div>
+                     </div>
                   </Data.Provider>
                </>
             )}
@@ -53,4 +58,4 @@ const Home = () => {
    )
 }
 export default Home;
-export  {Data} ;
+export { Data };
