@@ -6,63 +6,74 @@ import _ from 'lodash';
 import base from 'daisyui/dist/base';
 
 const Sidebar = () => {
-   // const products = useContext(Data)
-   // console.log(products);
-   const products = _.groupBy(useContext(Data), 'product_name');
-   const city = _.groupBy(useContext(Data), 'address.city');
-   const state = _.groupBy(useContext(Data), 'address.state');
-   console.log(city);
-   const options = Object.keys(products).map(product => ({
-      value: product,
-      label: product
-   }))
-   const optionsCity = Object.keys(city).map(city => ({
-      value: city,
-      label: city
-   }))
-   const optionsState = Object.keys(state).map(state => ({
-      value: state,
-      label: state
-   }))
 
-
-   // const [product, setProduct] = useState(null)
-   // const [city, setCity] = useState(null)
-   // const [state, setState] = useState(null)
-
-   // const handleProductChange = (obj) => {
-   //    setProduct(obj)
-   //    setCity(obj.address)
-   //    setState(obj.address)
-   //    console.log(obj);
-   // }
-   const handleChange = (obj) => {
-      console.log(obj);
+   //function to group the data
+   const groupBy = (data, filterName) => {
+      return _.groupBy(data, filterName);
    }
+   const products = groupBy(useContext(Data), 'product_name')
+   const city = groupBy(useContext(Data), 'address.city')
+   const state = groupBy(useContext(Data), 'address.state')
+
+   const [productObj, setProduct] = useState(null)
+
+   //Function to map the options for select
+   const objNew = (val) => {
+      return (
+         Object.keys(val).map(product => ({
+            value: product,
+            label: product
+         }))
+      )
+   }
+
+   const options = objNew(products)
+   const optionsCity = objNew(city)
+   const optionsState = objNew(state)
+
+   const [cityObj, setCity] = useState(optionsCity)
+   const [stateObj, setState] = useState(optionsState)
+
+   const handleChange = (selectedOption) => {
+      setProduct(selectedOption)
+
+      const filtered = _.filter(products[selectedOption.value], (product) => {
+         return product.address.state
+      })
+
+      //return object of filtered products
+      const filteredCity = _.groupBy(filtered, 'address.city');
+      const filteredState = _.groupBy(filtered, 'address.state');
+
+      setState(objNew(filteredState))
+      setCity(objNew(filteredCity))
+   }
+
    const customStyles = {
       control: (base, state) => ({
-        ...base,
-        background: "#292929",
-        borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-        boxShadow: state.isFocused ? null : null
+         ...base,
+         background: "#292929",
+         borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+         boxShadow: state.isFocused ? null : null
       }),
       menu: base => ({
-        ...base,
-        borderRadius: 0,
-        marginTop: 0
+         ...base,
+         borderRadius: 0,
+         marginTop: 0
       }),
       menuList: base => ({
-        ...base,
-        padding: 0,
-        background: "#292929",
+         ...base,
+         padding: 0,
+         background: "#292929",
       }),
       option: (base, state) => ({
          ...base,
-         color: "white",
+         color: state.isSelected ? "white" : "white",
+         background: state.isSelected ? "#292929" : "#292929",
          "&:hover": {
             // Overwrittes the different states of border
             background: "#000",
-          }
+         }
       }),
       singleValue: (base, state) => ({
          ...base,
@@ -71,14 +82,14 @@ const Sidebar = () => {
          "&:hover": {
             // Overwrittes the different states of border
             color: "white"
-          }
+         }
       }),
       placeholder: (base, state) => ({
          ...base,
          color: "white",
          color: state.isSelected ? "#000" : "#fff",
       })
-    };
+   };
    return (
       <>
 
@@ -88,9 +99,27 @@ const Sidebar = () => {
             <h2 className="card-title border-b border-b-gray-500 py-2 text-gray-300 font-light">Filter</h2>
             <div className='flex flex-col h-full items-center'>
 
-               <Select styles={customStyles} onChange={handleChange}  className="w-full my-3 bg-themeGray" options={options} placeholder="Product" />
-               <Select styles={customStyles}   onChange={handleChange} className="w-full my-3 bg-themeGray" options={optionsState} placeholder="State" />
-               <Select styles={customStyles}  onChange={handleChange} className="w-full my-3 bg-themeGray" options={optionsCity} placeholder="City" />
+               <Select
+                  styles={customStyles}
+                  onChange={handleChange}
+                  className="w-full my-3 bg-themeGray text-black"
+                  options={options}
+                  placeholder="Product"
+               />
+               <Select
+                  styles={customStyles}
+                  onChange=''
+                  className="w-full my-3 bg-themeGray text-black"
+                  options={stateObj}
+                  placeholder="State"
+               />
+               <Select
+                  styles={customStyles}
+                  onChange=''
+                  className="w-full my-3 bg-themeGray text-black"
+                  options={cityObj}
+                  placeholder="City"
+               />
 
             </div>
 

@@ -2,7 +2,8 @@ import Head from 'next/head'
 import Products from '../components/Products'
 import Sidebar from '../components/Sidebar'
 import axios from 'axios'
-import { useState, createContext, useEffect,useLayoutEffect} from 'react'
+import { ClipLoader } from 'react-spinners'
+import { useState, createContext, useEffect, useLayoutEffect } from 'react'
 import _ from 'lodash';
 const Data = createContext()
 
@@ -29,7 +30,7 @@ const Home = () => {
 
 
 
-// console.log(posts);
+   // console.log(posts);
    return (
       <div>
          <Head>
@@ -39,7 +40,9 @@ const Home = () => {
 
          <main className='min-h-screen container py-8 px-4 mx-auto'>
             {loading ? (
-               <h1 className='text-white'>Loading</h1>
+               <div className='flex justify-center items-center'>
+                  <ClipLoader size={60} color={'white'} />
+               </div>
             ) : (
                <>
                   <Data.Provider value={posts}>
