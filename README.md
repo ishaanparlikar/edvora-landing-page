@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Deployed URL 
-https://github.com/ishaanparlikar/edvora-landing-page
+https://happy-benz-07e2bd.netlify.app/
 
 
 ## Getting Started
