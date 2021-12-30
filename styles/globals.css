@@ -18,3 +18,12 @@ a {
 * {
   box-sizing: border-box;
 }
+button.splide__arrow{
+   background: transparent ;
+   color: #fff;
+   right: 20px;
+}
+button.splide__arrow svg{
+   color: #fff;
+   fill: #fff;
+}
