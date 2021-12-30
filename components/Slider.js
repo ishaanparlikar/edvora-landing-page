@@ -27,7 +27,7 @@ const Slider = ({ data }) => {
                            600: {
                               perPage: '1',
                            },
-                           800: {
+                           900: {
                               perPage: '2',
                            },
                         }
